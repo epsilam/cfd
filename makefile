@@ -1,19 +1,16 @@
-# arguments when calling make run
-RUNARGS :=
-
-CXX := g++
+CXX      := g++
 CXXFLAGS := -Wall -std=c++2a
-LIBS := -pthread
-SRCDIR := src
-OBJDIR := obj
-BINDIR := bin
-TARGET := $(BINDIR)/main
+LIBS     := -pthread
+SRCDIR   := src
+OBJDIR   := obj
+BINDIR   := bin
+TARGET   := $(BINDIR)/main
 
-# filename extension of source files
-SRCEXT := cc
+# Filename extension of source files
+SRCEXT   := cc
 
-SOURCES := $(wildcard $(SRCDIR)/*.$(SRCEXT))
-OBJECTS := $(patsubst $(SRCDIR)/%.$(SRCEXT),$(OBJDIR)/%.o,$(SOURCES))
+SOURCES  := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
+OBJECTS  := $(patsubst $(SRCDIR)/%.$(SRCEXT),$(OBJDIR)/%.o,$(SOURCES))
 
 # Link
 $(TARGET): $(OBJECTS)
@@ -21,8 +18,8 @@ $(TARGET): $(OBJECTS)
 	$(CXX) $^ -o $(TARGET) $(LIBS)
 
 # Compile source files
-$(OBJDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
-	@mkdir -p $(OBJDIR)
+$(OBJDIR)/%.o: $(SRCDIR)/%.$(SRCEXT) 
+	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
 .PHONY: clean
@@ -30,13 +27,14 @@ clean:
 	rm -rf $(BINDIR) $(OBJDIR) $(VIDDIR)
 
 run: $(TARGET)
-	./$(TARGET) $(RUNARGS)
+	./$(TARGET)
 
 debug: $(TARGET)
-	valgrind ./$(TARGET) $(RUNARGS)
+	valgrind ./$(TARGET)
 
-VIDDIR := vid
-VID := $(VIDDIR)/cfd.mkv
+# Video creation
+VIDDIR   := vid
+VID      := $(VIDDIR)/cfd.mkv
 
 video: $(TARGET)
 	@mkdir -p $(VIDDIR)

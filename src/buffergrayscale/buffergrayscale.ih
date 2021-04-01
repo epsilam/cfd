@@ -1,0 +1,4 @@
+#include "buffergrayscale.h"
+
+#include <stdexcept>
+#include <cstring>
