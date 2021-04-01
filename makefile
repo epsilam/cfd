@@ -27,10 +27,19 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 
 .PHONY: clean
 clean:
-	rm -rf $(BINDIR) $(OBJDIR)
+	rm -rf $(BINDIR) $(OBJDIR) $(VIDDIR)
 
 run: $(TARGET)
 	./$(TARGET) $(RUNARGS)
 
 debug: $(TARGET)
 	valgrind ./$(TARGET) $(RUNARGS)
+
+VIDDIR := vid
+VID := $(VIDDIR)/cfd.mkv
+
+video: $(TARGET)
+	@mkdir -p $(VIDDIR)
+	echo "Creating video..."
+	./$(TARGET) | ffmpeg -vcodec ppm -f image2pipe -i pipe:0 ./$(VID)
+	echo "Video created"
