@@ -7,7 +7,7 @@ int main()
    for (size_t i = 0; i != 100; ++i)
    {
       buf.set(i,i,255);
-      std::cout << buf;
+      buf.write();
       buf.flush();
    }
 }

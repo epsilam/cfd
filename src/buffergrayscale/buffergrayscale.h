@@ -4,7 +4,7 @@
 #include <iostream>
 
 class BufferGrayscale // Buffer containing pixels of 1 byte each, representing
-                      // some char value between 0 and 255, 0 being black.
+                      // some grayscale value between 0 and 255.
 {
     size_t d_height;
     size_t d_width;
@@ -14,19 +14,15 @@ class BufferGrayscale // Buffer containing pixels of 1 byte each, representing
     public:
         BufferGrayscale(size_t height, size_t width);
         ~BufferGrayscale();
+
         size_t height() const;
         size_t width() const;
 
         void set(size_t i, size_t j, char value);
         char get(size_t i, size_t j) const;
 
-        void flush();
-                                 // Write buffer to an output stream.
-        friend std::ostream& operator <<(std::ostream &out,
-                                         const BufferGrayscale &other);
-
-    private:
-        char *pixelArray() const;
+        void write(); // Push data for pgm image into std::cout.
+        void flush(); // Set all pixels in buffer to black.
 };
 
 inline size_t BufferGrayscale::height() const
@@ -38,12 +34,4 @@ inline size_t BufferGrayscale::width() const
 {
     return d_width;
 }
-
-inline char *BufferGrayscale::pixelArray() const
-{
-    return d_pixelArray;
-}
-
-
-
 #endif
