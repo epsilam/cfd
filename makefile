@@ -5,6 +5,12 @@ SRCDIR   := src
 OBJDIR   := obj
 BINDIR   := bin
 TARGET   := $(BINDIR)/main
+ERRLOG   := errorlog.txt
+
+# Video directory, name, and filename extension
+VIDDIR   := vid
+VIDNAME  := cfdvideo
+VIDEXT   := mkv
 
 # Filename extension of source files
 SRCEXT   := cc
@@ -24,7 +30,10 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 
 .PHONY: clean
 clean:
-	rm -rf $(BINDIR) $(OBJDIR) $(VIDDIR)
+	rm -rf $(BINDIR) $(OBJDIR) $(ERRLOG)
+
+cleanvid:
+	rm -rf $(VIDDIR)
 
 run: $(TARGET)
 	./$(TARGET)
@@ -33,11 +42,9 @@ debug: $(TARGET)
 	valgrind ./$(TARGET)
 
 # Video creation
-VIDDIR   := vid
-VID      := $(VIDDIR)/cfd.mkv
-
 video: $(TARGET)
 	@mkdir -p $(VIDDIR)
-	echo "Creating video..."
-	./$(TARGET) | ffmpeg -vcodec ppm -f image2pipe -i pipe:0 ./$(VID)
-	echo "Video created"
+	@echo "Creating video..."
+	$(eval VIDFILE := $(VIDDIR)/$(VIDNAME)$(shell date +'_%y.%m.%d_%H:%M:%S').$(VIDEXT))
+	./$(TARGET) 2> $(ERRLOG) | ffmpeg -vcodec ppm -f image2pipe -i pipe:0 ./$(VIDFILE)
+	@echo "Video created"

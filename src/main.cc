@@ -8,6 +8,7 @@ int main()
    {
       buf.set(i,i,255);
       buf.write();
-      buf.flush();
+      buf.clear();
+      std::cerr << "image written";
    }
 }

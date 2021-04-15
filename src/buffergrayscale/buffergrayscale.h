@@ -22,7 +22,7 @@ class BufferGrayscale // Buffer containing pixels of 1 byte each, representing
         char get(size_t i, size_t j) const;
 
         void write(); // Push data for pgm image into std::cout.
-        void flush(); // Set all pixels in buffer to black.
+        void clear(); // Set all pixels in buffer to black.
 };
 
 inline size_t BufferGrayscale::height() const
