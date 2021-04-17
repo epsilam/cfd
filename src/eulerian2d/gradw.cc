@@ -7,8 +7,8 @@ std::valarray<float> FluidState::gradW(FluidParticle *p1,
 {
     float d = distance(p1,p2);
     float q = d/h;
-    std::valarray<float> u{0,2}; // set two entries to zero
-    if (q >= 2)
+    std::valarray<float> u = {0,0}; // set two entries to zero
+    if (q >= 2 || q == 0)
         return u;
     else {
         float s = -3 * pow(2-q,2);

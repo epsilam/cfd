@@ -6,6 +6,9 @@ void FluidState::nextState()
     {
         FluidParticle *p = particles[idx];
 
+        std::cerr << "x-pos: " << round(p->pos[0]) << '\n';
+        std::cerr << "y-pos: " << round(p->pos[1]) << '\n';
+
         // find neighbours of p
         FluidParticle *neighbours[numParticles];
         size_t numNeibs = 0; // number of neighbours of p
@@ -19,20 +22,32 @@ void FluidState::nextState()
         computeDensity(p,numNeibs,neighbours);
         computePressure(p);
 
+        std::cerr << "density: " << p->dens << '\n';
+        std::cerr << "pressure: " << p->pres << '\n';
+
         // calculate accelerations on p
-        std::valarray<float> gravity = {0,10}; // gravity is 10 units per second
+        std::valarray<float> gravity = {50,0}; // gravity in num units per second
                                                // squared (downward direction)
-        std::valarray<float> acc{0,2};
-        acc =   accPres(p,numNeibs,neighbours)
-            + accVisc(p,numNeibs,neighbours)
-            + gravity;
+        std::valarray<float> aP = accPres(p,numNeibs,neighbours);
+        std::valarray<float> aV = accVisc(p,numNeibs,neighbours);
+
+        std::cerr << "x-aP: " << aP[0] << '\n';
+        std::cerr << "y-aP: " << aP[1] << '\n';
+
+        std::cerr << "x-aV: " << aV[0] << '\n';
+        std::cerr << "y-aV: " << aV[1] << '\n';
+
+        std::cerr << "x-gr: " << gravity[0] << '\n';
+        std::cerr << "y-gr: " << gravity[1] << '\n';
+
+        std::valarray<float> acc = aP + aV + gravity;
 
         // change velocity and position of p based on acceleration
         p->vel += dt * acc;
         p->pos += dt * p->vel;
 
         // boundary checking.
-        // particles must have x and y coords between 0 and 400
+        // particles must have x and y coords between 0 and 399
 
         // left boundary
         if (p->pos[0] < 0)
@@ -49,17 +64,17 @@ void FluidState::nextState()
         }
 
         // right boundary
-        if (p->pos[0] > 400)
+        if (p->pos[0] > 399)
         {
-            p->pos[0] = 400;
-            p->vel[0] = std::min(p->vel[0],400.0f);
+            p->pos[0] = 399;
+            p->vel[0] = std::min(p->vel[0],399.0f);
         }
 
         // bottom boundary
-        if (p->pos[1] > 400)
+        if (p->pos[1] > 399)
         {
-            p->pos[1] = 400;
-            p->vel[1] = std::min(p->vel[1],400.0f);
+            p->pos[1] = 399;
+            p->vel[1] = std::min(p->vel[1],399.0f);
         }
 
         // make sure velocity does not exceed maximum speed
@@ -72,5 +87,12 @@ void FluidState::nextState()
         if (p->vel[1] > vmax)
             p->vel[1] = vmax;
 
+        // push position of particle to buffer
+        std::cerr << "x-pos: " << round(p->pos[0]) << '\n';
+        std::cerr << "y-pos: " << round(p->pos[1]) << '\n' << '\n';
+        buf->set(round(p->pos[0]),round(p->pos[1]),static_cast<char>(255));
     }
+    buf->write();
+    std::cerr << "frame written\n\n";
+    buf->clear();
 }

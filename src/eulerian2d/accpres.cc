@@ -6,7 +6,7 @@ std::valarray<float> FluidState::accPres(FluidParticle *p,
                              size_t n,
                              FluidParticle **neighbours) const
 {
-    std::valarray<float> u{0,2};
+    std::valarray<float> u = {0,0};
     for (size_t idx = 0; idx != n; ++idx)
     {
         FluidParticle *pNeib = neighbours[idx];

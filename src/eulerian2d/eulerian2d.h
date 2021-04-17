@@ -1,11 +1,8 @@
-#ifndef BUFFERGRAYSCALE_H
-#define BUFFERGRAYSCALE_H
+#ifndef EULERIAN2D_H
+#define EULERIAN2D_H
 
 #include <valarray>
-
-// current deal dimensions: 400x400 grid
-// h = 5
-// numParticles = 30
+#include "../buffergrayscale/buffergrayscale.h"
 
 class FluidState
 {
@@ -17,7 +14,6 @@ class FluidState
         float pres; // pressure
     };
 
-    FluidParticle **particles;
     size_t numParticles; // number of particles
     float h;             // particle spacing
     float dens;          // rest density (constant)
@@ -27,9 +23,12 @@ class FluidState
     float alpha;         // scaling factor for kernel function
     float mass;          // mass of each particle
     float k;             // stiffness factor in pressure state equation
+    FluidParticle **particles;
+    BufferGrayscale *buf;
 
     public:
-        FluidState(size_t numParticles,
+        FluidState(BufferGrayscale *buf,
+                   size_t numParticles,
                    float restDensity,
                    float viscosity,
                    float particleSpacing,
