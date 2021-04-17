@@ -10,7 +10,7 @@ ERRLOG   := errorlog.txt
 # Video directory, name, and filename extension
 VIDDIR   := vid
 VIDNAME  := cfdvideo
-VIDEXT   := mkv
+VIDEXT   := mp4
 
 # Filename extension of source files
 SRCEXT   := cc

@@ -40,10 +40,29 @@ void FluidState::nextState()
         std::cerr << "x-gr: " << gravity[0] << '\n';
         std::cerr << "y-gr: " << gravity[1] << '\n';
 
+        // compute normal forces for boundary
+        if (p->pos[0] > 398)
+        {
+            gravity = {0,0};
+        }
+
+        // compute sum of accelerations
         std::valarray<float> acc = aP + aV + gravity;
 
-        // change velocity and position of p based on acceleration
+        // update velocity of p based on acceleration
         p->vel += dt * acc;
+
+        // make sure velocity does not exceed maximum speed
+        if (p->vel[0] < -vmax)
+            p->vel[0] = -vmax;
+        if (p->vel[1] < -vmax)
+            p->vel[1] = -vmax;
+        if (p->vel[0] > vmax)
+            p->vel[0] = vmax;
+        if (p->vel[1] > vmax)
+            p->vel[1] = vmax;
+
+        //  update position based on velocity
         p->pos += dt * p->vel;
 
         // boundary checking.
@@ -77,15 +96,6 @@ void FluidState::nextState()
             p->vel[1] = std::min(p->vel[1],399.0f);
         }
 
-        // make sure velocity does not exceed maximum speed
-        if (p->vel[0] < -vmax)
-            p->vel[0] = -vmax;
-        if (p->vel[1] < -vmax)
-            p->vel[1] = -vmax;
-        if (p->vel[0] > vmax)
-            p->vel[0] = vmax;
-        if (p->vel[1] > vmax)
-            p->vel[1] = vmax;
 
         // push position of particle to buffer
         std::cerr << "x-pos: " << round(p->pos[0]) << '\n';
