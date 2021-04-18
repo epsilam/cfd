@@ -40,53 +40,56 @@ void FluidState::nextState()
         // make sure velocity does not exceed maximum speed
         capVelocity(p);
 
-        if (p->vel[0] < -vmax)
-            p->vel[0] = -vmax;
-        if (p->vel[1] < -vmax)
-            p->vel[1] = -vmax;
-        if (p->vel[0] > vmax)
-            p->vel[0] = vmax;
-        if (p->vel[1] > vmax)
-            p->vel[1] = vmax;
 
         //  update position based on velocity
         p->pos += dt * p->vel;
 
         // boundary checking.
-        // particles must have x and y coords between 0 and 399
+        // Particles must have x and y coords between 0 and 399.
+        // To make the particles bounce off the walls, we just put a minus sign
+        // in front of the appropriate velocity coordinate when a particle is
+        // close enough to the boundary.
+        // We also make the collisions with the boundary slightly inelastic
+        // by reducing the velocity slightly.
+
+        float elasticityFactor = 0.95;
 
         // left boundary
         if (p->pos[0] < 0)
         {
             p->pos[0] = 0;
-            p->vel[0] = std::max(p->vel[0],0.0f);
+            //p->vel[0] = std::max(p->vel[0],0.0f);
+            p->vel[0] = fabsf(p->vel[0]) * elasticityFactor;
         }
 
         // top boundary
         if (p->pos[1] < 0)
         {
             p->pos[1] = 0;
-            p->vel[1] = std::max(p->vel[1],0.0f);
+            //p->vel[1] = std::max(p->vel[1],0.0f);
+            p->vel[1] = fabsf(p->vel[1]) * elasticityFactor;
         }
 
         // right boundary
         if (p->pos[0] > 399)
         {
             p->pos[0] = 399;
-            p->vel[0] = std::min(p->vel[0],399.0f);
+            //p->vel[0] = std::min(p->vel[0],0.0f);
+            p->vel[0] = -fabsf(p->vel[0]) * elasticityFactor;
         }
 
         // bottom boundary
         if (p->pos[1] > 399)
         {
             p->pos[1] = 399;
-            p->vel[1] = std::min(p->vel[1],399.0f);
+            //p->vel[1] = std::min(p->vel[1],0.0f);
+            p->vel[1] = -fabsf(p->vel[1]) * elasticityFactor;
         }
 
         // push position of particle to buffer
         buf->drawCircle(round(p->pos[0]),
                         round(p->pos[1]),
-                        round(2 * h),
+                        round(0.6 * h),
                         static_cast<char>(255));
     }
     buf->write();

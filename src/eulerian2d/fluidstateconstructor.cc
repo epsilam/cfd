@@ -23,8 +23,8 @@ FluidState::FluidState(BufferGrayscale *buf,
     for (size_t idx = 0; idx != numParticles; ++idx)
     {
         particles[idx] = new FluidParticle;
-        particles[idx]->pos = {static_cast<float>(rand()%100 + 150),
-                               static_cast<float>(rand()%100 + 150)};
+        particles[idx]->pos = {static_cast<float>(rand()%100 + 100),
+                               static_cast<float>(rand()%100 + 0)};
         particles[idx]->vel = {0,0};
         particles[idx]->dens = 1;
         particles[idx]->pres = 1;
