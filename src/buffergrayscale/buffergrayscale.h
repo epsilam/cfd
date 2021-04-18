@@ -21,12 +21,13 @@ class BufferGrayscale // Buffer containing pixels of 1 byte each, representing
         void set(size_t i, size_t j, char value);
         char get(size_t i, size_t j) const;
 
-        void safeSet(size_t i, size_t j, char value);
-
         void write(); // Push data for pgm image into std::cout.
         void clear(); // Set all pixels in buffer to black.
 
         void drawCircle(size_t i, size_t j, size_t radius, char value);
+
+    private:
+        void safeSet(size_t i, size_t j, char value);
 };
 
 inline size_t BufferGrayscale::height() const
