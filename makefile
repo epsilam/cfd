@@ -32,6 +32,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 clean:
 	rm -rf $(BINDIR) $(OBJDIR) $(ERRLOG)
 
+.PHONY: cleanvid
 cleanvid:
 	rm -rf $(VIDDIR)
 
