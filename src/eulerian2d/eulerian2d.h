@@ -57,6 +57,7 @@ class FluidState
         std::valarray<float> accGrav(FluidParticle *p,
                                      size_t n,
                                      FluidParticle **neighbours) const;
+        void capVelocity(FluidParticle *p);
 
 
 };
