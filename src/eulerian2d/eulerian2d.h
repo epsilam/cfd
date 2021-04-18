@@ -18,8 +18,8 @@ class FluidState
     float h;             // particle spacing
     float dens;          // rest density (constant)
     float visc;          // viscosity
-    float vmax;          // maximum velocity
     float dt;            // time step det'd by Courant-Freidrichs-Lewy condition
+    float vmax;          // maximum velocity
     float alpha;         // scaling factor for kernel function
     float mass;          // mass of each particle
     float k;             // stiffness factor in pressure state equation

@@ -6,7 +6,8 @@ int main()
 
    //for (size_t i = 0; i != 100; ++i)
    //{
-   //   buf.set(i,i,255);
+   //   //buf.set(i,i,255);
+   //   buf.drawCircle(i,i,30,255);
    //   buf.write();
    //   buf.clear();
    //   std::cerr << "image written";
@@ -24,5 +25,4 @@ int main()
    {
       fluid.nextState();
    }
-
 }

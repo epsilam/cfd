@@ -26,7 +26,7 @@ void FluidState::nextState()
         std::cerr << "pressure: " << p->pres << '\n';
 
         // calculate accelerations on p
-        std::valarray<float> gravity = {50,0}; // gravity in num units per second
+        std::valarray<float> gravity = {100,0}; // gravity in num units per second
                                                // squared (downward direction)
         std::valarray<float> aP = accPres(p,numNeibs,neighbours);
         std::valarray<float> aV = accVisc(p,numNeibs,neighbours);
@@ -100,7 +100,10 @@ void FluidState::nextState()
         // push position of particle to buffer
         std::cerr << "x-pos: " << round(p->pos[0]) << '\n';
         std::cerr << "y-pos: " << round(p->pos[1]) << '\n' << '\n';
-        buf->set(round(p->pos[0]),round(p->pos[1]),static_cast<char>(255));
+        buf->drawCircle(round(p->pos[0]),
+                        round(p->pos[1]),
+                        round(2 * h),
+                        static_cast<char>(255));
     }
     buf->write();
     std::cerr << "frame written\n\n";
