@@ -1,6 +1,6 @@
 #include "eulerian2d.ih"
 
-// acceleration on particle due to pressure from neighbouring particles
+// Acceleration on particle due to pressure from neighbouring particles.
 
 std::valarray<float> FluidState::accPres(FluidParticle *p,
                              size_t n,

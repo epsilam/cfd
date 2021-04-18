@@ -1,6 +1,6 @@
 #include "eulerian2d.ih"
 
-// kernel function with compact support
+// Kernel function with compact support of radius 2*h.
 
 float FluidState::W(FluidParticle *p1, FluidParticle *p2) const
 {

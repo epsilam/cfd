@@ -1,10 +1,11 @@
 #include "eulerian2d.ih"
 
-// acceleration due to viscous interactions with neighbouring particles
+// Acceleration on particle due to viscous interactions
+// with neighbouring particles.
 
 std::valarray<float> FluidState::accVisc(FluidParticle *p,
-                             size_t n,
-                             FluidParticle **neighbours) const
+                                         size_t n,
+                                         FluidParticle **neighbours) const
 {
     std::valarray<float> u = {0,0};
     for (size_t idx = 0; idx != n; ++idx)
