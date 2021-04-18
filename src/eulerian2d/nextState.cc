@@ -52,7 +52,7 @@ void FluidState::nextState()
         // We also make the collisions with the boundary slightly inelastic
         // by reducing the velocity slightly.
 
-        float elasticityFactor = 0.95;
+        float elasticityFactor = 0.9;
 
         // left boundary
         if (p->pos[0] < 0)
@@ -89,7 +89,7 @@ void FluidState::nextState()
         // push position of particle to buffer
         buf->drawCircle(round(p->pos[0]),
                         round(p->pos[1]),
-                        round(0.6 * h),
+                        round(0.5 * h),
                         static_cast<char>(255));
     }
     buf->write();
