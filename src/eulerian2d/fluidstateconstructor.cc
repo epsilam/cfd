@@ -12,7 +12,7 @@ FluidState::FluidState(BufferGrayscale *buf,
     dens(restDensity),
     visc(viscosity),
     dt(0.1),
-    vmax(0.8 * h / dt),
+    vmax(0.5 * h / dt),
     alpha(5 / (14 * M_PI * h*h)), // Note: this alpha is for 2d simulations
     mass(pow(h,3) * dens),
     k(pressureStiffness),

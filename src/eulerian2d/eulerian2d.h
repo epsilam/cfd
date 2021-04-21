@@ -14,15 +14,15 @@ class FluidState
         float pres; // pressure
     };
 
-    size_t numParticles; // number of particles
-    float h;             // particle spacing
-    float dens;          // rest density (constant)
-    float visc;          // viscosity
-    float dt;            // time step det'd by Courant-Freidrichs-Lewy condition
-    float vmax;          // maximum velocity
-    float alpha;         // scaling factor for kernel function
-    float mass;          // mass of each particle
-    float k;             // stiffness factor in pressure state equation
+    size_t const numParticles; // number of particles
+    float const h;             // particle spacing
+    float const dens;          // rest density (constant)
+    float const visc;          // viscosity
+    float const dt;            // time step det'd by Courant-Freidrichs-Lewy condition
+    float const vmax;          // maximum velocity
+    float const alpha;         // scaling factor for kernel function
+    float const mass;          // mass of each particle
+    float const k;             // stiffness factor in pressure state equation
     FluidParticle **particles;
     BufferGrayscale *buf;
 
@@ -54,9 +54,9 @@ class FluidState
         std::valarray<float> accVisc(FluidParticle *p,
                                      size_t n,
                                      FluidParticle **neighbours) const;
-        std::valarray<float> accGrav(FluidParticle *p,
-                                     size_t n,
-                                     FluidParticle **neighbours) const;
+        std::valarray<float> accBoun(FluidParticle *p) const;
+
+        void checkBoundary(FluidParticle *p);
         void capVelocity(FluidParticle *p);
 
 

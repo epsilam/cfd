@@ -13,3 +13,4 @@ make video
 
 # TODO
 * Make boundary detection in Eulerian2D more robust.
+* Allow usage of custom boundaries from images.
