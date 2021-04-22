@@ -25,10 +25,6 @@ void FluidState::nextState()
         std::valarray<float> aBoun = accBoun(p);
         std::valarray<float> aGrav = {100,0};
 
-        // compute normal forces for boundary
-        //if (p->pos[0] > 398)
-        //    gravity = {0,0};
-
         // compute sum of accelerations
         std::valarray<float> acc = aPres + aVisc + aBoun + aGrav;
 
