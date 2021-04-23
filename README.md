@@ -1,7 +1,7 @@
 # Description
 A library of some basic CFD tools.
 Current classes:
-* BufferGrayscale: for drawing images in grayscale to be piped through stdout into ffmpeg to create a .mp4 video (see `video` target in the makefile).
+* BufferGrayscale: for drawing PPM images to be piped into ffmpeg to create a video (see `video` target in the makefile).
 * Eulerian2D: 2-dimensional smooth parcel hydrodynamics simulator.
 
 # Dependencies
