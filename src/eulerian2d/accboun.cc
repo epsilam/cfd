@@ -9,24 +9,25 @@ std::valarray<float> FluidState::accBoun(FluidParticle *p) const
     float minBounDist = 1; // The distance a particle must be from the boundary
                            // for the boundary normal force to apply.
 
-    float bounRes = 1; // Acceleration due to small resistive force that pushes
-                       // particles away from the boundary.
+    float coeffRes = 0.8; // Coefficient of restitution (between 0 and 1).
+                          // Controls how much of the particle's momentum is
+                          // absorbed when colliding with the wall.
 
     // top boundary
     if (p->pos[0] - h < 0 + minBounDist)
-        out[0] = - 2 * p->vel[0] / dt + bounRes;
+        out[0] = - 2 * p->vel[0] / dt * coeffRes;
 
     // left boundary
     if (p->pos[1] - h < 0 + minBounDist)
-        out[1] = - 2 * p->vel[1] / dt + bounRes;
+        out[1] = - 2 * p->vel[1] / dt * coeffRes;
 
     // bottom boundary
     if (p->pos[0] + h > buf->height() - 1 - minBounDist)
-        out[0] = - 2 * p->vel[0] / dt - bounRes;
+        out[0] = - 2 * p->vel[0] / dt * coeffRes;
 
     // right boundary
     if (p->pos[1] + h > buf->width() - 1 - minBounDist)
-        out[1] = - 2 * p->vel[1] / dt - bounRes;
+        out[1] = - 2 * p->vel[1] / dt * coeffRes;
 
     return out;
 }
