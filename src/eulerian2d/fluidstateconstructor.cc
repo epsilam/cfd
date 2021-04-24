@@ -1,6 +1,7 @@
 #include "eulerian2d.ih"
 
-FluidState::FluidState(BufferGrayscale *buf,
+FluidState::FluidState(size_t frameHeight,
+                       size_t frameWidth,
                        size_t numParticles,
                        float restDensity,
                        float viscosity,
@@ -17,7 +18,7 @@ FluidState::FluidState(BufferGrayscale *buf,
     mass(pow(h,3) * dens),
     k(pressureStiffness),
     particles(new FluidParticle *[numParticles]),
-    buf(buf)
+    buf(new BufferGrayscale(frameHeight, frameWidth))
 {
     // Create initial particles with randomized position.
     for (size_t idx = 0; idx != numParticles; ++idx)

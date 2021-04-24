@@ -1,4 +1,3 @@
-#include "buffergrayscale/buffergrayscale.h"
 #include "eulerian2d/eulerian2d.h"
 
 #include <iostream>

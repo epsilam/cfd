@@ -27,7 +27,8 @@ class FluidState
     BufferGrayscale *buf;
 
     public:
-        FluidState(BufferGrayscale *buf,
+        FluidState(size_t frameHeight,
+                   size_t frameWidth,
                    size_t numParticles,
                    float restDensity,
                    float viscosity,
