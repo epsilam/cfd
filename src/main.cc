@@ -2,10 +2,9 @@
 
 int main()
 {
-   //BufferGrayscale buf(400,400);
    FluidState fluid(400,  // frame height
                     400,  // frame width
-                    300, // num particles
+                    300,  // num particles
                     3,    // density
                     0.5,  // viscosity
                     8,    // spacing
