@@ -26,6 +26,7 @@ class BufferGrayscale // Buffer containing pixels of 1 byte each, representing
 
         void drawCircle(size_t i, size_t j, size_t radius, char value);
         void drawFilledCircle(size_t i, size_t j, size_t radius, char value);
+        void drawBlurredCircle(size_t i, size_t j, size_t radius);
 
     private:
         void safeSet(size_t i, size_t j, char value);
