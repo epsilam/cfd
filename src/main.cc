@@ -4,14 +4,15 @@ int main()
 {
    FluidState fluid(400,  // frame height
                     400,  // frame width
+                    1,    // frame skip (see eulerian2d.h)
                     300,  // num particles
-                    3,    // density
+                    10,   // density
                     0.5,  // viscosity
-                    8,    // spacing
+                    7,    // spacing
                     1.0   // pressure stiffness
    );
 
-   for (size_t idx = 0; idx != 300; ++idx)
+   for (size_t idx = 0; idx != 500; ++idx)
    {
       fluid.nextState();
    }

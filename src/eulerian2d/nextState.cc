@@ -37,10 +37,20 @@ void FluidState::nextState()
         checkBoundary(p);
 
         // push position of particle to buffer
-        buf->drawBlurredCircle(round(p->pos[0]),
-                               round(p->pos[1]),
-                               round(h));
+        if (frameNum % frameSkip == 0)
+        {
+            buf->drawBlurredCircle(round(p->pos[0]),
+                                   round(p->pos[1]),
+                                   round(h));
+        }
     }
-    buf->write();
-    buf->clear();
+
+    if (frameNum % frameSkip == 0)
+    {
+        buf->write();
+        buf->clear();
+    }
+
+    // increment frame number
+    frameNum++;
 }

@@ -14,6 +14,14 @@ class FluidState
         float pres; // pressure
     };
 
+    size_t frameNum;           // current frame number, incremented in nextState()
+
+    size_t const frameSkip;    // If n is the frameSkip, then only every n'th
+                               // frame is written to the image buffer, but
+                               // particle accelerations, velocities, positions
+                               // are still computed.
+                               // A frameSkip of 1 means every frame is written.
+
     size_t const numParticles; // number of particles
     float const h;             // particle spacing
     float const dens;          // rest density (constant)
@@ -29,6 +37,7 @@ class FluidState
     public:
         FluidState(size_t frameHeight,
                    size_t frameWidth,
+                   size_t frameSkip,
                    size_t numParticles,
                    float restDensity,
                    float viscosity,
