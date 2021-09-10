@@ -1,4 +1,4 @@
-#include "eulerian2d.h"
+#include "sph2d.h"
 
 #include <cmath>
 #include <numeric>

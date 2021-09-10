@@ -1,4 +1,4 @@
-#include "eulerian2d.ih"
+#include "sph2d.ih"
 
 // Kernel function with compact support of radius 2*h.
 

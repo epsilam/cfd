@@ -1,4 +1,4 @@
-#include "eulerian2d.ih"
+#include "sph2d.ih"
 
 // Compute density at a particle as the weighted sum of the masses of its
 // neighbouring particles using the kernel function W.

@@ -1,5 +1,5 @@
-#ifndef EULERIAN2D_H
-#define EULERIAN2D_H
+#ifndef SPH2D_H
+#define SPH2D_H
 
 #include <valarray>
 #include "../buffergrayscale/buffergrayscale.h"

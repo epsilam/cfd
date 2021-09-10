@@ -1,4 +1,4 @@
-#include "eulerian2d.ih"
+#include "sph2d.ih"
 
 FluidState::~FluidState()
 {

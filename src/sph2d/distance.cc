@@ -1,4 +1,4 @@
-#include "eulerian2d.ih"
+#include "sph2d.ih"
 
 float FluidState::distance(FluidParticle *p1, FluidParticle *p2) const
 {
